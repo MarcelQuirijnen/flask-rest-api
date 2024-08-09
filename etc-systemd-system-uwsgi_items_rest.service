@@ -1,0 +1,17 @@
+### Start this service by doing the following
+# sudo systemctl start uwsgi_items_rest
+###
+
+[Unit]
+Description=uWSGI items REST API
+
+[Service]
+Environment=DATABASE_URL=postgres://user:passwd@localhost:5432/restapiDB
+ExecStart=/var/www/html/items-rest/venv-api/bin/uwsgi --master --emperor /var/www/html/items-rest/uwsgi.ini --die-on-term --uid www-data --gid www-data --logto /var/www/html/items-rest/log/emperor.log
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
